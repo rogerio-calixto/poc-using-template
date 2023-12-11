@@ -27,8 +27,11 @@ jobs:
         run: terraform init -reconfigure -backend-config="./backend-config/dev.conf" -backend-config="region=${{secrets.AWS_REGION_DEV}}" -backend-config="access_key=${{secrets.AWS_ACCESS_KEY_ID}}" -backend-config="secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}}"
         working-directory: ${{ env.working-directory }}
 
+      - name: list directory
+        run: ls -la
+
       - name: Terraform plan
-        run: terraform plan -var-file="./dev.tfvars" -out tfplan.binary
+        run: terraform plan -var-file="dev.tfvars" -out tfplan.binary
         working-directory: ${{ env.working-directory }}
 
     #   - name: Terraform show
