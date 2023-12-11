@@ -16,6 +16,8 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Checkout source code so we can install the action locally
+        uses: actions/checkout@v3
       - name: Setup Infracost
         uses: ./setup
         with:
