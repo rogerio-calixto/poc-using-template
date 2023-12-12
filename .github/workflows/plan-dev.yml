@@ -34,7 +34,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend=true -backend-config="config/dev/backend.hcl -backend-config="aws_access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="aws_access_secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}""
+        run: terraform init -backend=true -backend-config="config/dev/backend.hcl" -backend-config="aws_access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="aws_access_secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
 
       - name: Terraform Validate
         id: validate
