@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: .
+      AWS_REGION_DEV: ${{vars.AWS_REGION_DEV}}
 
     name: Run Infracost
     steps:
@@ -24,7 +25,9 @@ jobs:
       # IMPORTANT: add any required steps here to set up cloud credentials so Terraform can run
 
       - name: Terraform init
-        run: terraform init -reconfigure -backend-config="./backend-config/dev.conf" -backend-config="region=${{secrets.AWS_REGION_DEV}}" -backend-config="access_key=${{secrets.AWS_ACCESS_KEY_ID}}" -backend-config="secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}}"
+        run: echo "region=${{ secrets.AWS_REGION_DEV }}"
+        
+        # run: terraform init -reconfigure -backend-config="./backend-config/dev.conf" -backend-config="region=${{secrets.AWS_REGION_DEV}}" -backend-config="access_key=${{secrets.AWS_ACCESS_KEY_ID}}" -backend-config="secret_key=${{secrets.AWS_SECRET_ACCESS_KEY}}"
         working-directory: ${{ env.working-directory }}
 
       - name: list directory
