@@ -1,8 +1,8 @@
 module "vpc" {
   source = "git::https://github.com/rogerio-calixto/aws-network-template.git"
   # aws_profile       = var.aws_profile
-  aws_access_key        = var.aws_access_key
-  aws_access_secret_key = var.aws_access_secret_key
+  aws_access_key        = var.access_key
+  aws_access_secret_key = var.secret_key
   aws_region            = var.aws_region
   environment           = var.environment
   project               = local.project

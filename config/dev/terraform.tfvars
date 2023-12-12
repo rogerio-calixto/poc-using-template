@@ -1,5 +1,5 @@
 environment   = "dev"
 aws_region    = "us-east-2"
 instance-type = "t3.micro"
-aws_access_key = ""
-aws_access_secret_key = ""
+access_key = ""
+secret_key = ""
