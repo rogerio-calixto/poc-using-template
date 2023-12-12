@@ -8,6 +8,16 @@ variable "aws_profile" {
   description = "AWS profile"
 }
 
+variable "aws_access_key" {
+  type        = any
+  description = "AWS profile"
+}
+
+variable "aws_access_secret_key" {
+  type        = any
+  description = "AWS profile"
+}
+
 variable "environment" {
   type        = string
   description = "environment"

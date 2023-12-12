@@ -1,7 +1,7 @@
 locals {
-  environment       = "dev"
-  project           = "poc-template"
-  cidr_block        = "10.0.0.0/16"
+  environment = "dev"
+  project     = "poc-template"
+  cidr_block  = "10.0.0.0/16"
   subnet_pvt_config = [
     {
       cidr_block     = "10.0.1.0/24"
