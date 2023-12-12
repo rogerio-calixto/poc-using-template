@@ -23,13 +23,13 @@ jobs:
 
       # IMPORTANT: add any required steps here to set up cloud credentials so Terraform can run
 
+      - name: list directory
+        run: ls -la
+
       - name: Terraform init
         run: |
           terraform init -reconfigure -backend-config='./backend-config/dev.conf' -backend-config='region=${{ secrets.AWS_REGION_DEV }}' -backend-config='access_key=${{ secrets.AWS_ACCESS_KEY_ID }}' -backend-config='secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}'
           terraform plan -var-file="dev.tfvars" -out tfplan.binary
-
-      # - name: list directory
-      #   run: ls -la
 
       # - name: Terraform plan
       #   run: terraform plan -var-file="dev.tfvars" -out tfplan.binary
