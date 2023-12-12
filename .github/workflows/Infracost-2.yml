@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       working-directory: .
-      AWS_REGION_DEV: ${{vars.AWS_REGION_DEV}}
 
     name: Run Infracost
     steps:
