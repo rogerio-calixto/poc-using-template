@@ -1,13 +1,22 @@
-variable "region" {
+variable "aws_region" {
   type        = string
-  description = ""
-  default     = "us-east-1"
+  description = "AWS region"
 }
 
+variable "aws_profile" {
+  type        = string
+  description = "AWS profile"
+  default     = "default"
+}
 
 variable "environment" {
   type        = string
-  description = ""
+  description = "environment"
+}
+
+variable "instance-type" {
+  type        = string
+  description = "instance-type"
 }
 
 variable "ubuntu-amis" {

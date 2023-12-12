@@ -1,0 +1,5 @@
+bucket  = "buck-devops"
+key     = "terraform/state/local/tf_poc_template.tfstate"
+region  = "us-east-1"
+profile = "devops"
+encrypt = "true"
