@@ -4,9 +4,8 @@ variable "aws_region" {
 }
 
 variable "aws_profile" {
-  type        = string
+  type        = any
   description = "AWS profile"
-  default     = "default"
 }
 
 variable "environment" {
