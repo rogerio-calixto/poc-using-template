@@ -3,10 +3,10 @@ variable "aws_region" {
   description = "AWS region"
 }
 
-variable "aws_profile" {
-  type        = any
-  description = "AWS profile"
-}
+# variable "aws_profile" {
+#   type        = any
+#   description = "AWS profile"
+# }
 
 variable "access_key" {
   type        = any
