@@ -34,14 +34,12 @@ jobs:
           cat config/dev/terraform.tfvars
 
       - name: Terraform init
-        run: |
-          terraform init -reconfigure -backend=true -backend-config="config/dev/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
-          terraform plan -no-color -var-file="config/dev/terraform.tfvars" -out tfplan.binary
+        run: terraform init -reconfigure -backend=true -backend-config="config/dev/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
         working-directory: ${{ env.working-directory }}
 
-      # - name: Terraform plan
-      #   run: terraform plan -var-file="dev.tfvars" -out tfplan.binary
-      #   working-directory: ${{ env.working-directory }}
+      - name: Terraform plan
+        run: terraform plan -var-file="config/dev/terraform.tfvars" -out tfplan.binary
+        working-directory: ${{ env.working-directory }}
 
     #   - name: Terraform show
     #     run: terraform show -json tfplan.binary > plan.json
