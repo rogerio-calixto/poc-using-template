@@ -50,7 +50,7 @@ resource "aws_security_group" "sg-host" {
   }
 
   tags = {
-    Name        = "${local.project}-sg-calixto"
+    Name        = "${local.project}-server-sg"
     Environment = var.environment
     Project     = local.project
   }
