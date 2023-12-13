@@ -45,7 +45,7 @@ variable "region-keypair" {
   description = "Key Pairs"
   default = {
     us-east-1 = "kp_devops"
-    us-east-2 = "kp_devops2"
+    us-east-2 = ""
     us-west-1 = ""
     us-west-2 = ""
   }

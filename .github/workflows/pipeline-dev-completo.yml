@@ -85,8 +85,8 @@ jobs:
       # Passar o arquivo plan.json para o infracost gerar os custos
       - name: Generate Infracost JSON
         run: |
-             infracost breakdown --path= plan.json --format json --out-file /tmp/infracost.json  \
-                              --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
+             infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json  \
+                                 --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
 
       - name: Infracost Actions
         uses: infracost/actions/comment@v1
