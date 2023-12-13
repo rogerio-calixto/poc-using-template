@@ -11,7 +11,7 @@ env:
 
 jobs:
     terraform:
-        name: CI
+        name: Apply (CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'
