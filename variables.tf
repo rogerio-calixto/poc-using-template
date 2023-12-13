@@ -3,19 +3,22 @@ variable "aws_region" {
   description = "AWS region"
 }
 
-# variable "aws_profile" {
-#   type        = any
-#   description = "AWS profile"
-# }
+variable "aws_profile" {
+  type        = any
+  description = "AWS profile"
+  default     = null
+}
 
 variable "access_key" {
   type        = any
   description = "AWS profile"
+  default     = null
 }
 
 variable "secret_key" {
   type        = any
   description = "AWS profile"
+  default     = null
 }
 
 variable "environment" {

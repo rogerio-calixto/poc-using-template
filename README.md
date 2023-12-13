@@ -8,13 +8,14 @@ terraform init -reconfigure -backend-config=".\backend-config\dev.conf"
 terraform get -update
 
 # plan
-terraform plan -var-file="dev.tfvars" -out="tfplan.out"
+terraform plan -var-file="config/local/terraform.tfvars" -out="tfplan.out"
 
 # apply
 terraform apply tfplan.out
 
 # destroy
-terraform destroy -auto-approve
+terraform destroy -var-file="config/local/terraform.tfvars" -auto-approve
+
 
 # infra_costs
 infracost breakdown --path=. --show-skipped --terraform-var-file dev.tfvars

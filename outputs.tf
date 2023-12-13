@@ -18,17 +18,17 @@ output "vpc_publicSubNetIds" {
   value       = module.vpc.public-subnet_ids
 }
 
-# output "instance_private_ip" {
-#   description = "private ip"
-#   value       = module.instance.ec2_private_ip
-# }
+output "instance_private_ip" {
+  description = "private ip"
+  value       = module.instance.ec2_private_ip
+}
 
-# output "instance_public_ip" {
-#   description = "public ip"
-#   value       = module.instance.ec2_public_ip
-# }
+output "instance_public_ip" {
+  description = "public ip"
+  value       = module.instance.ec2_public_ip
+}
 
-# output "sg-id" {
-#   description = "public ip"
-#   value       = aws_security_group.sg-host.id
-# }
+output "sg-id" {
+  description = "public ip"
+  value       = aws_security_group.sg-host.id
+}
