@@ -1,4 +1,4 @@
-name: Infracost-Dev
+name: infracost-dev
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -23,11 +23,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
-
-      - name: list directory
-        run: |
-          ls config/dev -la
-          cat config/dev/terraform.tfvars
 
       - name: Terraform init
         run: terraform init -reconfigure -backend=true -backend-config="config/dev/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
