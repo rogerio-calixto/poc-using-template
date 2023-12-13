@@ -53,12 +53,13 @@ jobs:
       - name: Generate Infracost JSON
         run: |
           infracost breakdown --path=. --show-skipped \
-                              --terraform-plan-flags="-var-file=config/dev/terraform.tfvars" \
-                              --format=json \
-                              --out-file=/tmp/infracost-base.json
+                              --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
         working-directory: ${{ env.working-directory }}
 
-        # --terraform-var-file config/dev/terraform.tfvars \
+        # infracost breakdown --path=. --show-skipped \
+        #                       --terraform-plan-flags="-var-file=config/dev/terraform.tfvars" \
+        # --format=json \
+        # --out-file=/tmp/infracost-base.json
         
     #   - name: Post Infracost comment
     #     uses: infracost/actions/comment@v1
