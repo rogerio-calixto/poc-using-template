@@ -43,10 +43,11 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: terraform plan -out plan.tfplan -no-color -var-file="config/dev/terraform.tfvars"
+        working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Terraform show
         run: terraform show -json tfplan.tfplan > plan.json
-        working-directory: ${{ env.working-directory }}
+        working-directory: ${{ env.TF_WORKING_DIR }}
 
       - uses: actions/github-script@v6
         if: github.event_name == 'pull_request'
