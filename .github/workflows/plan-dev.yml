@@ -1,4 +1,4 @@
-name: Pipeline terraform plan
+name: plan-dev-pipeline
 
 on:
   workflow_dispatch:
@@ -28,9 +28,9 @@ jobs:
         with:
           terraform_version: 1.2.1
 
-    #   - name: Terraform fmt
-    #     id: fmt
-    #     run: terraform fmt -check
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt
 
       - name: Terraform Init
         id: init

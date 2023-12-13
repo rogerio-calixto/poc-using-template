@@ -1,7 +1,5 @@
-# The GitHub Actions docs (https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#on)
-# describe other options for 'on', 'pull_request' is a good default.
+name: Infracost-Dev
 
-# Controls when the workflow will run
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -26,8 +24,6 @@ jobs:
         with:
           terraform_wrapper: false # This is recommended so the `terraform show` command outputs valid JSON
 
-      # IMPORTANT: add any required steps here to set up cloud credentials so Terraform can run
-
       - name: list directory
         run: |
           ls config/dev -la
@@ -41,9 +37,9 @@ jobs:
         run: terraform plan -var-file="config/dev/terraform.tfvars" -out tfplan.binary
         working-directory: ${{ env.working-directory }}
 
-    #   - name: Terraform show
-    #     run: terraform show -json tfplan.binary > plan.json
-    #     working-directory: ${{ env.working-directory }}
+      - name: Terraform show
+        run: terraform show -json tfplan.binary > plan.json
+        working-directory: ${{ env.working-directory }}
 
       - name: Setup Infracost
         uses: infracost/actions/setup@v1
@@ -55,11 +51,6 @@ jobs:
           infracost breakdown --path=. --show-skipped \
                               --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
         working-directory: ${{ env.working-directory }}
-
-        # infracost breakdown --path=. --show-skipped \
-        #                       --terraform-plan-flags="-var-file=config/dev/terraform.tfvars" \
-        # --format=json \
-        # --out-file=/tmp/infracost-base.json
         
     #   - name: Post Infracost comment
     #     uses: infracost/actions/comment@v1
