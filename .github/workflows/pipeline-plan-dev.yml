@@ -1,4 +1,4 @@
-name: pipeline-dev-completo
+name: pipeline plan dev
 
 on:
   pull_request:
