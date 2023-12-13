@@ -1,0 +1,5 @@
+environment   = "hml"
+aws_region    = "us-west-2"
+instance-type = "t3.micro"
+access_key = ""
+secret_key = ""
