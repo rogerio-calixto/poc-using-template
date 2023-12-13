@@ -51,7 +51,7 @@ jobs:
           
       - name: Generate Infracost JSON
         run: |
-          infracost breakdown --path=. --show-skipped --terraform-var-file /config/dev/terraform.tfvars \
+          infracost breakdown --path=. --show-skipped --terraform-var-file config/dev/terraform.tfvars \
                               --format=json \
                               --out-file=/tmp/infracost-base.json
         working-directory: ${{ env.working-directory }}
