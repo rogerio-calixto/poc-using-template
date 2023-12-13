@@ -29,7 +29,9 @@ jobs:
       # IMPORTANT: add any required steps here to set up cloud credentials so Terraform can run
 
       - name: list directory
-        run: ls -la
+        run: |
+          ls config/dev -la
+          cat config/dev/terraform.tfvars
 
       - name: Terraform init
         run: |
