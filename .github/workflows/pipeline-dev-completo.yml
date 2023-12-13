@@ -42,11 +42,11 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -out plan.tfplan -no-color -var-file="config/dev/terraform.tfvars"
+        run: terraform plan -out tfplan.binary -no-color -var-file="config/dev/terraform.tfvars"
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Terraform show
-        run: terraform show -json tfplan.tfplan > plan.json
+        run: terraform show -json tfplan.binary > plan.json
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - uses: actions/github-script@v6
@@ -85,8 +85,8 @@ jobs:
       # Passar o arquivo plan.json para o infracost gerar os custos
       - name: Generate Infracost JSON
         run: |
-             infracost breakdown --path= plan.json --format json --out-file /tmp/infracost.json  \
-                              --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
+             infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json  \
+                                 --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
 
       - name: Infracost Actions
         uses: infracost/actions/comment@v1
