@@ -1,4 +1,4 @@
-name: pipeline plan dev
+name: pipeline plan hml
 
 on:
   pull_request:
@@ -32,7 +32,7 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: terraform init -backend=true -backend-config="config/dev/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
+        run: terraform init -backend=true -backend-config="config/hml/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
 
       - name: Terraform Validate
         id: validate
@@ -44,7 +44,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
-        run: terraform plan -out tfplan.binary -no-color -var-file="config/dev/terraform.tfvars"
+        run: terraform plan -out tfplan.binary -no-color -var-file="config/hml/terraform.tfvars"
         working-directory: ${{ env.TF_WORKING_DIR }}
 
       - name: Terraform show
@@ -88,7 +88,7 @@ jobs:
       - name: Generate Infracost JSON
         run: |
              infracost breakdown --path=plan.json --format json --out-file /tmp/infracost.json  \
-                                 --terraform-plan-flags="-var-file=config/dev/terraform.tfvars"
+                                 --terraform-plan-flags="-var-file=config/hml/terraform.tfvars"
 
       - name: Infracost Actions
         uses: infracost/actions/comment@v1

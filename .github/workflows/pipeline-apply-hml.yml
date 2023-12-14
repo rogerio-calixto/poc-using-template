@@ -1,0 +1,81 @@
+name:  pipeline apply hml
+
+on:
+  push:
+    branches:
+      - homologacao
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+    terraform:
+        name: Apply (CD)
+        runs-on: ubuntu-latest
+        env:
+           TF_WORKING_DIR: '.'
+
+        defaults:
+            run:
+                shell: bash
+                working-directory: ${{ env.TF_WORKING_DIR }}
+
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v2
+        
+          - name: Setup Terraform
+            uses: hashicorp/setup-terraform@v1
+            with:
+              terraform_version: 1.2.1
+        
+          - name: Terraform Init
+            id: init
+            run: terraform init -backend=true -backend-config="config/hml/backend.hcl" -backend-config="access_key=${{ env.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ env.AWS_SECRET_ACCESS_KEY }}"
+        
+          - name: Terraform Validate
+            id: validate
+            run: terraform validate -no-color
+        
+          - name: Terraform fmt
+            id: fmt
+            run: terraform fmt        
+        
+          - name: Terraform Plan
+            id: plan
+            run: terraform plan -no-color -var-file="config/hml/terraform.tfvars"
+            working-directory: ${{ env.TF_WORKING_DIR }}
+
+          - name: Generate PR Information
+            uses: actions/github-script@v6
+            if: github.event_name == 'pull_request'
+            env:
+              PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+            with:
+              github-token: ${{ secrets.GITHUB_TOKEN }}
+              script: |
+                const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+                #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+                #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+                #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+                <details><summary>Show Plan</summary>
+                \`\`\`\n
+                ${process.env.PLAN}
+                \`\`\`
+                </details>
+                *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: output
+                })
+    
+          - name: Terraform Plan Status
+            if: steps.plan.outcome == 'failure'
+            run: exit 1
+    
+          - name: Terraform Apply
+            if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+            run: terraform apply -auto-approve -var-file="config/hml/terraform.tfvars"
