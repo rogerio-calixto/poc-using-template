@@ -11,7 +11,7 @@ env:
 
 jobs:
   terraform:
-    name: Plan (CI)
+    name: Plan - Homologacao (CI)
     runs-on: ubuntu-latest
     env:
       TF_WORKING_DIR: '.'

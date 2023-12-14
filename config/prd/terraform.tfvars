@@ -1,5 +1,5 @@
-environment   = "dev"
-aws_region    = "us-east-2"
+environment   = "prd"
+aws_region    = "us-east-1"
 instance-type = "t3.micro"
 access_key = ""
 secret_key = ""
