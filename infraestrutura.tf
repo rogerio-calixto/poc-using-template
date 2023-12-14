@@ -29,6 +29,24 @@ module "instance" {
   instance-name         = "${local.project}-server"
 }
 
+module "instance-client" {
+  source                = "git::https://github.com/rogerio-calixto/aws-instance-template.git"
+  aws_profile           = var.aws_profile
+  aws_access_key        = var.access_key
+  aws_access_secret_key = var.secret_key
+  aws_region            = var.aws_region
+  environment           = var.environment
+  project               = local.project
+  ami                   = lookup(var.ubuntu-amis, var.aws_region)
+  instance-type         = "t3.small"
+  keypair-name          = lookup(var.region-keypair, var.aws_region)
+  vpc-id                = module.vpc.aws_vpc_id
+  subnet-id             = module.vpc.public-subnet_ids[0]
+  sg-id                 = aws_security_group.sg-host.id
+  associate-public-ip   = true
+  instance-name         = "${local.project}-client"
+}
+
 resource "aws_security_group" "sg-host" {
   name        = "${local.project}-sg-host"
   description = "Habilita acesso ao bastion host"
