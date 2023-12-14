@@ -1,4 +1,4 @@
-name:  pipeline destroy dev
+name:  pipeline destroy producao
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ env:
 
 jobs:
     terraform:
-        name: Destroy (CD)
+        name: Destroy Producao (CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'

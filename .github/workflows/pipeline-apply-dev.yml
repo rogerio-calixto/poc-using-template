@@ -1,4 +1,4 @@
-name:  pipeline apply dev
+name:  pipeline apply producao
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
 
 jobs:
     terraform:
-        name: Apply (CD)
+        name: Apply Producao (CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'
