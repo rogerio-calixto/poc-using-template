@@ -26,7 +26,7 @@ module "instance" {
   subnet-id             = module.vpc.public-subnet_ids[0]
   sg-id                 = aws_security_group.sg-host.id
   associate-public-ip   = true
-  instance-name         = "${local.project}-server"
+  instance-name         = "${local.project}-server-${var.environment}"
 }
 
 module "instance-client" {
@@ -42,13 +42,13 @@ module "instance-client" {
   keypair-name          = lookup(var.region-keypair, var.aws_region)
   vpc-id                = module.vpc.aws_vpc_id
   subnet-id             = module.vpc.public-subnet_ids[0]
-  sg-id                 = aws_security_group.sg-host.id
+  sg-id                 = aws_security_group.sg-client.id
   associate-public-ip   = true
-  instance-name         = "${local.project}-client"
+  instance-name         = "${local.project}-client-${var.environment}"
 }
 
 resource "aws_security_group" "sg-host" {
-  name        = "${local.project}-sg-host"
+  name        = "${local.project}-server-sg-${var.environment}"
   description = "Habilita acesso ao bastion host"
   vpc_id      = module.vpc.aws_vpc_id
 
@@ -68,7 +68,42 @@ resource "aws_security_group" "sg-host" {
   }
 
   tags = {
-    Name        = "${local.project}-server-sg"
+    Name        = "${local.project}-server-sg-${var.environment}"
+    Environment = var.environment
+    Project     = local.project
+  }
+}
+
+resource "aws_security_group" "sg-client" {
+  name        = "${local.project}-client-sg-${var.environment}"
+  description = "Habilita acesso ao client"
+  vpc_id      = module.vpc.aws_vpc_id
+
+  ingress {
+    description = "libera SSH para instance ip particular"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["179.125.170.200/32"]
+  }
+
+  ingress {
+     description = "libera HTTP"
+     from_port   = 80
+     to_port     = 80
+     protocol    = "tcp"
+     cidr_blocks = ["179.125.170.200/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${local.project}-client-sg-${var.environment}"
     Environment = var.environment
     Project     = local.project
   }
