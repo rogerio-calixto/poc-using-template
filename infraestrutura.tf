@@ -29,7 +29,7 @@ module "instance" {
   instance-name         = "${local.project}-server"
 }
 
-module "instance" {
+module "instance-client" {
   source                = "git::https://github.com/rogerio-calixto/aws-instance-template.git"
   aws_profile           = var.aws_profile
   aws_access_key        = var.access_key
