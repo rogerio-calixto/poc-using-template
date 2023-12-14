@@ -13,7 +13,7 @@ env:
 
 jobs:
     terraform:
-        name: Apply (CD)
+        name: Apply - Homologacao(CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'
