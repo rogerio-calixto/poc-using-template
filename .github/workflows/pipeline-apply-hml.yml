@@ -13,7 +13,7 @@ env:
 
 jobs:
     terraform:
-        name: Apply - Homologacao(CD)
+        name: Apply - Homologacao (CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'
@@ -79,5 +79,5 @@ jobs:
             run: exit 1
     
           - name: Terraform Apply
-            if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+            if: github.ref == 'refs/heads/homologacao' && github.event_name == 'push'
             run: terraform apply -auto-approve -var-file="config/hml/terraform.tfvars"
