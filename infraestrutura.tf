@@ -73,3 +73,13 @@ resource "aws_security_group" "sg-host" {
     Project     = local.project
   }
 }
+
+resource "aws_sns_topic" "devops-sns" {
+  name = "${local.project}-sns-${var.environment}"
+}
+
+resource "aws_sns_topic_subscription" "futura-sns-email" {
+  topic_arn = aws_sns_topic.devops-sns.arn
+  protocol  = "email"
+  endpoint  = "calixto.futura@gmail.com"
+}
