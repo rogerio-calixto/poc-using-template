@@ -1,4 +1,4 @@
-name:  pipeline apply dev
+name:  pipeline apply - producao
 
 on:
   push:
