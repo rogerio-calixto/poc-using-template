@@ -9,7 +9,7 @@ env:
 
 jobs:
     terraform:
-        name: Destroy Homologacao (CD)
+        name: Destroy (CD)
         runs-on: ubuntu-latest
         env:
            TF_WORKING_DIR: '.'
