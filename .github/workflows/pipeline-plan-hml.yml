@@ -1,7 +1,9 @@
-name: pipeline plan hml
+name: pipeline plan homologacao
 
 on:
   pull_request:
+    branches:
+      - homologacao
     paths-ignore:
       - '.github/**'
 
@@ -11,7 +13,7 @@ env:
 
 jobs:
   terraform:
-    name: Plan (CI)
+    name: Plan Homologacao (CI)
     runs-on: ubuntu-latest
     env:
       TF_WORKING_DIR: '.'

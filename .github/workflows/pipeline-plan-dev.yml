@@ -1,7 +1,9 @@
-name: pipeline plan dev
+name: pipeline plan producao
 
 on:
   pull_request:
+    branches:
+      - main
     paths-ignore:
       - '.github/**'
 
@@ -11,7 +13,7 @@ env:
 
 jobs:
   terraform:
-    name: Plan (CI)
+    name: Plan Producao (CI)
     runs-on: ubuntu-latest
     env:
       TF_WORKING_DIR: '.'
