@@ -2,6 +2,8 @@ name: pipeline plan hml
 
 on:
   pull_request:
+    branches:
+      - homologacao
     paths-ignore:
       - '.github/**'
 

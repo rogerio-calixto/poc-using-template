@@ -38,7 +38,7 @@ module "instance-client" {
   environment           = var.environment
   project               = local.project
   ami                   = lookup(var.ubuntu-amis, var.aws_region)
-  instance-type         = "t3.small"
+  instance-type         = "t3.micro"
   keypair-name          = lookup(var.region-keypair, var.aws_region)
   vpc-id                = module.vpc.aws_vpc_id
   subnet-id             = module.vpc.public-subnet_ids[0]
@@ -72,4 +72,14 @@ resource "aws_security_group" "sg-host" {
     Environment = var.environment
     Project     = local.project
   }
+}
+
+resource "aws_sns_topic" "devops-sns" {
+  name = "${local.project}-sns-${var.environment}"
+}
+
+resource "aws_sns_topic_subscription" "futura-sns-email" {
+  topic_arn = aws_sns_topic.devops-sns.arn
+  protocol  = "email"
+  endpoint  = "calixto.futura@gmail.com"
 }
