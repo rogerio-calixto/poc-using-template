@@ -38,7 +38,7 @@ module "instance-client" {
   environment           = var.environment
   project               = local.project
   ami                   = lookup(var.ubuntu-amis, var.aws_region)
-  instance-type         = "t3.small"
+  instance-type         = "t3.micro"
   keypair-name          = lookup(var.region-keypair, var.aws_region)
   vpc-id                = module.vpc.aws_vpc_id
   subnet-id             = module.vpc.public-subnet_ids[0]
