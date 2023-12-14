@@ -2,6 +2,8 @@ name: pipeline plan dev
 
 on:
   pull_request:
+    branches:
+      - main
     paths-ignore:
       - '.github/**'
 
