@@ -29,23 +29,23 @@ module "instance" {
   instance-name         = "${local.project}-server-${var.environment}"
 }
 
-module "instance-client" {
-  source                = "git::https://github.com/rogerio-calixto/aws-instance-template.git"
-  aws_profile           = var.aws_profile
-  aws_access_key        = var.access_key
-  aws_access_secret_key = var.secret_key
-  aws_region            = var.aws_region
-  environment           = var.environment
-  project               = local.project
-  ami                   = lookup(var.ubuntu-amis, var.aws_region)
-  instance-type         = "t3.small"
-  keypair-name          = lookup(var.region-keypair, var.aws_region)
-  vpc-id                = module.vpc.aws_vpc_id
-  subnet-id             = module.vpc.public-subnet_ids[0]
-  sg-id                 = aws_security_group.sg-client.id
-  associate-public-ip   = true
-  instance-name         = "${local.project}-client-${var.environment}"
-}
+# module "instance-client" {
+#   source                = "git::https://github.com/rogerio-calixto/aws-instance-template.git"
+#   aws_profile           = var.aws_profile
+#   aws_access_key        = var.access_key
+#   aws_access_secret_key = var.secret_key
+#   aws_region            = var.aws_region
+#   environment           = var.environment
+#   project               = local.project
+#   ami                   = lookup(var.ubuntu-amis, var.aws_region)
+#   instance-type         = "t3.small"
+#   keypair-name          = lookup(var.region-keypair, var.aws_region)
+#   vpc-id                = module.vpc.aws_vpc_id
+#   subnet-id             = module.vpc.public-subnet_ids[0]
+#   sg-id                 = aws_security_group.sg-client.id
+#   associate-public-ip   = true
+#   instance-name         = "${local.project}-client-${var.environment}"
+# }
 
 resource "aws_security_group" "sg-host" {
   name        = "${local.project}-server-sg-${var.environment}"
